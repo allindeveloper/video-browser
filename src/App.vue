@@ -2,8 +2,9 @@
     <div>
         <div>
             <SearchBar  @termChange="onTermChange"/>
-            <VideoList :videos="videos" />
-
+            <VideoDetail :video="selectedVideo"/>
+            <VideoList :videos="videos" @videoSelect="onVideoSelect" />
+            
         </div>
     </div>
 </template>
@@ -13,15 +14,18 @@
 import axios from 'axios';
 import SearchBar from "./components/SearchBar";
 import VideoList from "./components/VideoList";
+import VideoDetail from "./components/VideoDetail";
 const API_KEY = process.env.VUE_APP_API_KEY; //Youtube APIKEY
 export default {
     name:'App',
     components:{
         SearchBar,
-        VideoList
+        VideoList, 
+        VideoDetail
     },
+    props:['video'],
     data(){
-        return{videos:[]};
+        return{videos:[], selectedVideo:null};
     },
     methods:{
         onTermChange(searchTerm){
@@ -36,6 +40,9 @@ export default {
             .then(response =>{
                 this.videos = response.data.items;
             })
+        },
+        onVideoSelect(video){
+            this.selectedVideo = video
         }
     }
 }
