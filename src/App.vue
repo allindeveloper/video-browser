@@ -2,9 +2,10 @@
     <div>
         <div>
             <SearchBar  @termChange="onTermChange"/>
-            <VideoDetail :video="selectedVideo"/>
-            <VideoList :videos="videos" @videoSelect="onVideoSelect" />
-            
+            <div class="row">
+                <VideoDetail :video="selectedVideo"/>
+                <VideoList :videos="videos" @videoSelect="onVideoSelect" />
+            </div>
         </div>
     </div>
 </template>
